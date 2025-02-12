@@ -1,0 +1,18 @@
+
+CREATE OR REPLACE EXTERNAL TABLE `esoteric-realm-448604-v0.de_zoomcamp.external_yellow_tripdata`
+OPTIONS (
+  format = 'CSV',
+  uris = ['gs://kestra-zoomcamp-bucket-20250206/yellow_tripdata_2020-*.csv']
+);
+
+
+gs://kestra-zoomcamp-bucket-20250206/yellow_tripdata_2020-12.csv
+
+
+-- Create a non partitioned table from external table
+CREATE OR REPLACE TABLE taxi-rides-ny.nytaxi.yellow_tripdata_partitoned
+PARTITION BY
+  DATE(tpep_pickup_datetime) AS
+SELECT * FROM taxi-rides-ny.nytaxi.external_yellow_tripdata;
+
+
